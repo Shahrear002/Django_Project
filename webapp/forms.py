@@ -5,7 +5,7 @@ class signuppf(forms.Form):
 	username = forms.CharField(required=True)
 	password = forms.CharField(required=True)
 	address = forms.CharField(required=True)
-	contactnum = forms.CharField(required=True)
+	contactnumber = forms.CharField(required=True)
 
 	def clean(self):
 		cleaned_data = super(signuppf, self).clean()
@@ -13,7 +13,7 @@ class signuppf(forms.Form):
 		username = cleaned_data.get('username')
 		password = cleaned_data.get('password')
 		address = cleaned_data.get('address')
-		contactnum = cleaned_data.get('contactnum')
-		if not name and not username and not password and not address and not contactnum:
+		contactnumber = cleaned_data.get('contactnum')
+		if not name and not username and not password and not address and not contactnumber:
 			raise forms.ValidationError('You have to write something')
 			

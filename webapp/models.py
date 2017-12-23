@@ -1,11 +1,15 @@
 from django.db import models
+from django.forms import ModelForm
 
 class signupp(models.Model):
 		name = models.CharField(max_length=50)
 		username = models.CharField(max_length=15)
-		passw = models.CharField(max_length=20)
+		password = models.CharField(max_length=20)
 		address = models.TextField()
-		connum = models.CharField(max_length=14)
+		contactnumber = models.CharField(max_length=14)
 
-
-		
+'''class signuppf(ModelForm):
+	class meta:
+		model = signupp
+		fields = ['name', 'username', 'password', 'address', 'contactnumber']'''
+			
