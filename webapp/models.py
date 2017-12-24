@@ -8,6 +8,9 @@ class patient_info(models.Model):
 	address = models.TextField()
 	contactnumber = models.CharField(max_length=14)
 
+	def __str__(self):
+		return self.username
+
 class doctor_info(models.Model):
 	name = models.CharField(max_length=50)
 	username = models.CharField(max_length=15)
