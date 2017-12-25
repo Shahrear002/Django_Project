@@ -39,6 +39,7 @@
 	</style>
 	<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %} " type="text/css"/>
 </head>
+{% block content %}
 <body>
 	<h1>Login to DoctorNearMe</h1>
 	<form action="." method='POST'>
@@ -47,6 +48,8 @@
 		{{ field.label }}<br> {{ field }} <br>
 		{% endfor %}
 		<!--<button type="submit">Submit</button>-->
-		<input type="submit" value="Submit" />
+		<input type="submit" value="Login" />
 	</form>
+	<p>Copyright-mark icon: <span class="glyphicon glyphicon-copyright-mark"></span></p>
 </body>
+{% endblock %}

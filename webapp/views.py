@@ -2,6 +2,9 @@ from django.shortcuts import render, HttpResponse, redirect, HttpResponseRedirec
 from .forms import signuppf, signupdf, loginf
 from webapp.models import patient_info, doctor_info
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
 def index(request):
 	return render(request, 'personal/firstpage.html')
 
@@ -19,7 +22,7 @@ def signupp(request): # patient signup form view
 			spo = patient_info(name = name, username = username, password = password, address = address, contactnumber = contactnumber)
 			spo.save() # save data into database
 			
-			return HttpResponseRedirect('/login_view/')
+			return HttpResponseRedirect('/login/')
 	else:
 		form = signuppf()
 	
@@ -40,24 +43,31 @@ def signupd(request): # doctor's signup
 			spd = doctor_info(name = name, username = username, password = password, Chamber_address = Chamber_address, Speciality = Speciality, Degree = Degree)
 			spd.save() # save data into database
 			
-			return HttpResponseRedirect('/login_view/')
+			return HttpResponseRedirect('/login/')
 	else:
 		form = signupdf()
 	
 	return render(request, 'personal/signupd.html', {'form': form})
 
 def login_view(request):
+	logout(request)
 	form = loginf()
-	if form.is_valid():
-		username = request.POST.get('username','')
-		password = request.POST.get('password','')
-		user = User.authenticate(username=form.cleaned_data['username'],
-				password=form.cleaned_data['password'])
-
-		return HttpResponseRedirect('/userhome/')
+	username = password = ''
+	if request.POST:
+		#form.save()
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username = username, password = password)
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return HttpResponseRedirect('/userhome/')
+	else:
+		form = loginf()
 
 	return render(request, 'personal/login.html', {'form': form})
-
+	
+@login_required(login_url='/login/')
 def userhome(request):
 	#data = patient_info.objects.all()
 	#data = doctor_info.objects.all()
