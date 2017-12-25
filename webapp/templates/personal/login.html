@@ -42,6 +42,15 @@
 {% block content %}
 <body>
 	<h1>Login to DoctorNearMe</h1>
+	{% if messages %}
+	<div class="span12" style="color: red; font-size: 130%">
+	{% for message in messages %}
+    	<div class="alert alert-{{ message.tags }}">
+        	{{ message|safe }}
+    	</div>
+	{% endfor %}
+	</div>
+	{% endif %}
 	<form action="." method='POST'>
 		{% csrf_token %}
 		{% for field in form %}
@@ -50,6 +59,9 @@
 		<!--<button type="submit">Submit</button>-->
 		<input type="submit" value="Login" />
 	</form>
-	<p>Copyright-mark icon: <span class="glyphicon glyphicon-copyright-mark"></span></p>
+	<div class="container-fluid" style='margin-left:15px'>
+		<p>Don't have an account ? <a href="/signupp/"> Sign Up </a> | <a href="/"> Home </a>
+		</p> 
+	</div>
 </body>
 {% endblock %}

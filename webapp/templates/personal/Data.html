@@ -13,7 +13,6 @@
 		body {
 		  height:100%
 		}
-		table.outset{border-style: outset;}
 	</style>
 </head>
 
@@ -54,17 +53,6 @@
 			<div class='container-fluid'>
 			<br><br>
 			   {% block content %}
-			   		{% for d in data %}
-			   		
-			   		<div style="background-color: gray;color:black;padding:25px;
-			   		width:350px;display: inline-grid; font-size: 18px">
-			   			Name: {{ d.name }}<br>
-			   			Speciality: {{ d.Speciality }}<br>
-			   			Degree: {{ d.Degree }}<br>
-			   			Address: {{ d.Chamber_address }}<br>
-			   		</div>
-			   		
-			   		{% endfor %}		   	
 			   {% endblock %}	
 			</div>
 		  </div>

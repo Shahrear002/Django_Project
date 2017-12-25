@@ -4,6 +4,7 @@ from webapp.models import patient_info, doctor_info
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 def index(request):
 	return render(request, 'personal/firstpage.html')
@@ -35,7 +36,7 @@ def signupd(request): # doctor's signup
 			name = request.POST.get('name','')
 			username = request.POST.get('username','')
 			password = request.POST.get('password','')
-			Chamber_address = request.POST.get('Chamber address','')
+			Chamber_address = request.POST.get('Chamber_address','')
 			Speciality = request.POST.get('Speciality','')
 			Degree = request.POST.get('Degree','')
 			user = User.objects.create_user(username=form.cleaned_data['username'],
@@ -62,13 +63,14 @@ def login_view(request):
 			if user.is_active:
 				login(request, user)
 				return HttpResponseRedirect('/userhome/')
+		else:
+			messages.error(request,"Invalid username or password, please try again.")
 	else:
 		form = loginf()
 
 	return render(request, 'personal/login.html', {'form': form})
-	
+
 @login_required(login_url='/login/')
 def userhome(request):
-	#data = patient_info.objects.all()
-	#data = doctor_info.objects.all()
-	return render(request, 'personal/userhome.html')
+	data = doctor_info.objects.all()
+	return render(request, 'personal/userhome.html', {'data': data})
